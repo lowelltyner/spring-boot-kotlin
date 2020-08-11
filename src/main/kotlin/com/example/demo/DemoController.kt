@@ -1,10 +1,6 @@
 package com.example.demo
 
-import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.util.concurrent.atomic.AtomicLong
 
 @RestController
@@ -21,5 +17,11 @@ class GreetingController {
     @GetMapping("/got")
     fun getGot(): Greeting {
         return Greeting(counter.decrementAndGet(), template.decapitalize())
+    }
+
+    @PostMapping("/reset")
+    fun reset(): Greeting {
+        counter.set(0)
+        return Greeting(counter.get(), template.decapitalize())
     }
 }
